@@ -7,91 +7,370 @@
   <style>
     :root {
       --primary: #0078d7;
-      --bg: #f5f6fa;
+      --bg: #ffffff;
       --text: #222;
-      --card-bg: #fff;
       --muted: #666;
+      --rent: linear-gradient(135deg, #00b7ff, #0078d7);
+      --whatsapp: linear-gradient(135deg, #25d366, #128c7e);
+      --buy: linear-gradient(135deg, #28a745, #34d058);
+      --ticker-bg: linear-gradient(90deg, #0078d7, #00b7ff);
     }
 
-    * {margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif;}
-    body {background: var(--bg); color: var(--text); line-height: 1.6;}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
 
-    /* Navigation bar */
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Sticky Navigation */
     nav {
       background: #005a9e;
       color: white;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 40px;
+      padding: 15px 25px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
+
     nav .logo {
       font-size: 1.5rem;
       font-weight: 700;
-      letter-spacing: 1px;
     }
+
     nav ul {
       list-style: none;
       display: flex;
-      gap: 25px;
+      gap: 20px;
     }
+
     nav ul li a {
       color: white;
       text-decoration: none;
       font-weight: 500;
       transition: color 0.3s;
     }
+
     nav ul li a:hover {
       color: #b3e0ff;
     }
 
+    /* Scrolling contact bar */
+    .scrolling-contact {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background: var(--ticker-bg);
+      color: #fff;
+      font-weight: 600;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 8px 0;
+      font-size: 0.95rem;
+      z-index: 999;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .scrolling-contact span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scrollLeft 25s linear infinite;
+    }
+
+    @keyframes scrollLeft {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* Header */
     header {
-      background: linear-gradient(135deg, #005a9e, #0099ff);
+      background: url('img/banner.jpg') center/cover no-repeat;
       color: white;
       text-align: center;
-      padding: 80px 20px;
+      padding: 160px 20px 130px;
+      position: relative;
+      margin-top: 95px;
     }
-    header h1 {font-size: 2.5rem; margin-bottom: 10px;}
-    header p {font-size: 1.1rem; margin-bottom: 25px;}
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 0;
+    }
+
+    header h1,
+    header p,
     header a {
-      background: white; color: #005a9e; padding: 12px 30px;
-      border-radius: 25px; font-weight: 600; text-decoration: none;
-      transition: background .3s;
+      position: relative;
+      z-index: 1;
     }
-    header a:hover {background: #e6f2ff;}
 
-    section {padding: 60px 20px; max-width: 1200px; margin: auto;}
-    .section-title {text-align: center; font-size: 1.8rem; color: var(--primary); margin-bottom: 40px;}
+    header h1 {
+      font-size: 2.6rem;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #fff, #b3e6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-    .about {text-align: center; max-width: 900px; margin: auto; color: var(--muted);}
+    header p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      color: #e6f9ff;
+    }
 
+    .whatsapp-btn {
+      display: inline-block;
+      background: var(--whatsapp);
+      color: #fff;
+      padding: 14px 35px;
+      border-radius: 35px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: pulse 2s infinite;
+    }
+
+    .whatsapp-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Section titles */
+    .section-title {
+      text-align: center;
+      font-size: 1.9rem;
+      margin-bottom: 50px;
+      margin-top: 80px;
+      background: linear-gradient(90deg, #0078d7, #00b7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    section {
+      padding: 0 20px 80px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    /* Services */
     .services {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 25px;
+      margin-bottom: 60px;
     }
+
     .service {
-      background: var(--card-bg); padding: 25px; border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      transition: transform .3s, box-shadow .3s;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
     }
+
     .service:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    }
-    .service h3 {color: var(--primary); margin-bottom: 10px; font-size: 1.2rem;}
-    .service p {color: var(--muted); font-size: 0.95rem;}
-
-    .certs {display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 30px;}
-    .certs img {
-      width: 140px; height: auto; background: white; border-radius: 10px;
-      padding: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
 
-    .contact {text-align: center;}
-    .contact p {margin: 10px 0; color: var(--muted);}
-    .contact a {color: var(--primary); text-decoration: none; font-weight: 600;}
-    .contact a:hover {text-decoration: underline;}
+    .service h3 {
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .service p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* Products Section */
+    .products-section {
+      background: #f8faff;
+      border-top: 4px solid #0078d7;
+      border-bottom: 4px solid #00b7ff;
+      box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.05);
+      padding: 90px 20px 100px;
+      text-align: center;
+      border-radius: 10px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      background: #f5f5f5;
+      padding: 8px;
+    }
+
+    .product-card h3 {
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+
+    .product-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      display: inline-block;
+      background: linear-gradient(90deg, #00b7ff, #00ffcc);
+      color: #fff;
+      padding: 6px 15px;
+      border-radius: 25px;
+      font-weight: 600;
+      margin: 12px 0 18px;
+      box-shadow: 0 0 10px rgba(0, 183, 255, 0.6);
+    }
+
+    .product-card .rent-btn,
+    .product-card .buy-btn {
+      display: inline-block;
+      text-decoration: none;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .rent-btn {
+      background: var(--rent);
+    }
+
+    .rent-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 183, 255, 0.5);
+    }
+
+    .buy-btn {
+      background: var(--buy);
+    }
+
+    .buy-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(40, 167, 69, 0.5);
+    }
+
+    /* Certifications Section */
+    .certs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      justify-items: center;
+      padding: 20px;
+    }
+
+    .cert-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .cert-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #f8f9fa;
+    }
+
+    /* Contact Section */
+    #contact .contact-box {
+      background: #f8f9fa;
+      padding: 40px 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    #contact .contact-item {
+      margin: 10px 0;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    #contact .contact-item a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    #contact .contact-item a:hover {
+      text-decoration: underline;
+    }
 
     footer {
       background: #e9ecef;
@@ -101,72 +380,173 @@
       border-top: 2px solid var(--primary);
       font-size: 0.9rem;
     }
-    footer span {color: var(--primary); font-weight: 600;}
 
-    @media(max-width:768px){
-      nav {flex-direction: column; gap: 10px;}
-      header h1 {font-size: 1.9rem;}
-      header p {font-size: 1rem;}
+    footer span {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .scrolling-contact {
+        font-size: 0.8rem;
+        top: 100px;
+      }
+
+      header h1 {
+        font-size: 1.9rem;
+      }
+
+      header p {
+        font-size: 1rem;
+      }
+
+      .cert-card img {
+        height: 160px;
+      }
     }
   </style>
 </head>
-<body>
 
+<body>
   <nav>
     <div class="logo">TechBytez</div>
     <ul>
       <li><a href="#services">Services</a></li>
+      <li><a href="#products">Products</a></li>
       <li><a href="#certifications">Certifications</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
+  <div class="scrolling-contact">
+    <span>📞 +91 7993937701 | +91 8978776883 | +91 9014349171 — ✉️ services.techbytez@gmail.com — Hyderabad, India | 24/7 IT Support</span>
+  </div>
+
   <header>
     <h1>TechBytez — Your Complete IT Partner</h1>
     <p>Free Consulting & Business IT Analysis — Cloud, Networking, Security & Support</p>
-    <a href="https://wa.me/917993937701?text=Hi%20I%20want%20a%20free%20consultation%20for%20my%20business%20IT%20services.">WhatsApp for Free Consultation</a>
+    <a class="whatsapp-btn"
+      href="https://wa.me/917993937701?text=Hi%20I%20want%20a%20free%20consultation%20for%20my%20business%20IT%20services.">📞
+      Click Here to WhatsApp for Free Consultation</a>
   </header>
-
-  <section class="about">
-    <h2 class="section-title">About Us</h2>
-    <p>At TechBytez, we deliver end-to-end IT solutions — from infrastructure setup and cloud deployment to cybersecurity and managed support. 
-    With deep expertise in AWS, networking, and security, we help businesses scale confidently with reliable, secure, and optimized technology systems.</p>
-  </section>
 
   <section id="services">
     <h2 class="section-title">Our Services</h2>
     <div class="services">
-      <div class="service"><h3>Cloud & AWS Solutions</h3><p>Migration, architecture, and cost-efficient management on AWS cloud.</p></div>
-      <div class="service"><h3>Networking & Troubleshooting</h3><p>Professional LAN/WAN setup, structured cabling, and network issue resolution.</p></div>
-      <div class="service"><h3>Cybersecurity & Firewalls</h3><p>Firewall configuration, endpoint protection, and proactive threat monitoring.</p></div>
-      <div class="service"><h3>Server & Endpoint Management</h3><p>Full-cycle management of servers, systems, and endpoint security.</p></div>
-      <div class="service"><h3>Business IT Solutions</h3><p>Customized IT setup, office automation, and long-term tech strategy planning.</p></div>
-      <div class="service"><h3>24/7 IT Support</h3><p>Always-on monitoring, helpdesk, and on-site support for mission-critical operations.</p></div>
+      <div class="service">
+        <h3>Cloud & AWS Solutions</h3>
+        <p>Migration, architecture, and cost-efficient management on AWS cloud.</p>
+      </div>
+      <div class="service">
+        <h3>Networking & Troubleshooting</h3>
+        <p>Professional LAN/WAN setup, structured cabling, and issue resolution.</p>
+      </div>
+      <div class="service">
+        <h3>Cybersecurity & Firewalls</h3>
+        <p>Firewall setup, endpoint protection, and proactive threat monitoring.</p>
+      </div>
+      <div class="service">
+        <h3>Server & Endpoint Management</h3>
+        <p>Full-cycle management of servers, systems, and endpoint devices.</p>
+      </div>
+      <div class="service">
+        <h3>Startup IT Setup</h3>
+        <p>End-to-end IT infrastructure setup for startups and medium enterprises.</p>
+      </div>
+      <div class="service">
+        <h3>Network Configuration & Support</h3>
+        <p>Switches, routers, VLANs, VPNs — optimized for business continuity.</p>
+      </div>
+      <div class="service">
+        <h3>Remote IT Monitoring</h3>
+        <p>24/7 monitoring, helpdesk, and instant technical support for clients.</p>
+      </div>
+      <div class="service">
+        <h3>IT Infrastructure Planning</h3>
+        <p>Scalable planning for business growth with secure IT strategy alignment.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="products" class="products-section">
+    <h2 class="section-title">Products / Provide on Rent</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="img/office_pc.jpg" alt="Office PC">
+        <h3>Office PCs</h3>
+        <p>i3 / i5 / i7 processors, 4GB / 8GB / 16GB RAM, HDD or SSD — customizable for office and business use.</p>
+        <div class="price">💰 Starting at ₹1000/month | Minimum 10 PCs</div><br>
+        <a class="rent-btn"
+          href="https://wa.me/917993937701?text=Hi%20I%20want%20to%20rent%20Office%20PCs.">💬 Rent Now</a>
+      </div>
+
+      <div class="product-card">
+        <img src="img/gaming_pc.jpg" alt="Gaming PC">
+        <h3>Gaming PCs</h3>
+        <p>High-performance customizable setups — ideal for gaming, design, and rendering.</p>
+        <div class="price">💰 Starting at ₹2000/month | Minimum 5 PCs</div><br>
+        <a class="rent-btn"
+          href="https://wa.me/917993937701?text=Hi%20I%20want%20to%20rent%20Gaming%20PCs.">💬 Rent Now</a>
+      </div>
+
+      <div class="product-card">
+        <img src="img/servers.png" alt="Servers">
+        <h3>Servers</h3>
+        <p>Enterprise-grade Dell servers with i3 / i5 / i7 / Xeon, 8GB–128GB RAM, HDD or SSD storage — fully customizable.</p>
+        <div class="price">💰 Starting at ₹3000/month</div><br>
+        <a class="rent-btn"
+          href="https://wa.me/917993937701?text=Hi%20I%20want%20to%20rent%20Servers.">💬 Rent Now</a>
+      </div>
+
+      <div class="product-card">
+        <img src="img/pc_acce.jpg" alt="Accessories">
+        <h3>Accessories</h3>
+        <p>Keyboards, mice, routers, RAM, storage drives, and more — available at wholesale prices for retail & bulk buyers.</p>
+        <div class="price">🛒 Wholesale prices available</div><br>
+        <a class="buy-btn"
+          href="https://wa.me/917993937701?text=Hi%20I%20want%20to%20buy%20Accessories.">🛒 Buy Now</a>
+      </div>
     </div>
   </section>
 
   <section id="certifications">
     <h2 class="section-title">Certifications</h2>
     <div class="certs">
-      <img src="img/aws_ai.png" alt="AWS Certification">
-      <img src="img/ccna.png" alt="CCNA Certification">
-      <img src="img/sec.jpg" alt="Security+ Certification">
+      <div class="cert-card">
+        <img src="img/aws_ai.png" alt="AWS AI Practitioner Certification">
+      </div>
+      <div class="cert-card">
+        <img src="img/ccna.png" alt="CCNA Certification">
+      </div>
+      <div class="cert-card">
+        <img src="img/sec.jpg" alt="CompTIA Security+ Certification">
+      </div>
     </div>
   </section>
 
   <section id="contact">
     <h2 class="section-title">Contact Us</h2>
-    <div class="contact">
-      <p><strong>Phone:</strong> +91 7993937701 | +91 8978776883 | +91 9014349171</p>
-      <p><strong>Email:</strong> <a href="mailto:services.techbytez@gmail.com">services.techbytez@gmail.com</a></p>
-      <p><strong>Location:</strong> Hyderabad, India</p>
-      <p><strong>Availability:</strong> 24/7 Support</p>
+    <div class="contact-box">
+      <div class="contact-item">📞 <strong>Phone:</strong> +91 7993937701 | +91 8978776883 | +91 9014349171</div>
+      <div class="contact-item">✉️ <strong>Email:</strong> <a
+          href="mailto:services.techbytez@gmail.com">services.techbytez@gmail.com</a></div>
+      <div class="contact-item">📍 <strong>Location:</strong> Hyderabad, India</div>
+      <div class="contact-item">🕓 <strong>Support:</strong> 24/7 Available</div>
+      <div style="margin-top:20px;">
+        <a class="whatsapp-btn"
+          href="https://wa.me/917993937701?text=Hi%20I%20want%20to%20connect%20regarding%20TechBytez%20services.">💬
+          Chat on WhatsApp</a>
+      </div>
     </div>
   </section>
 
   <footer>
-    © 2025 TechBytez IT Consulting — <span>Designed & Built by Shaik Sulaman</span>
+    © 2025 TechBytez IT Consulting | <span>Build and Design by SHAIK SULAMAN</span>
   </footer>
-
 </body>
 </html>
