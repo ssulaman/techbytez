@@ -5,6 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TechBytez IT Consulting</title>
   <style>
+
+    <!-- ===== Brochure Zoom Effect (No JS) ===== -->
+
+  /* When user taps or clicks an image, open it in fullscreen */
+  .brochure-img {
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+  }
+
+  .brochure-img:active {
+    transform: scale(2);
+    z-index: 999;
+    position: relative;
+  }
+
+  @media (max-width: 768px) {
+    .brochure-img:active {
+      transform: scale(1.8);
+    }
+  }
+
+<!-- ===== End of Zoom Effect ===== -->
+
     :root {
       --primary: #0078d7;
       --bg: #ffffff;
@@ -578,4 +601,5 @@
   </footer>
 </body>
 </html>
+
 
